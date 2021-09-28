@@ -1,12 +1,14 @@
 import React from 'react'
+import { withRouter } from 'react-router'
 
 import classes from './MenuItem.module.sass'
 
-const MenuItem = ({title, imageUrl, size}) => {
+const MenuItem = ({title, imageUrl, size, history, linkUrl, match}) => {
 	return (
 		<div 
 			className={`${classes.menu_item} ${classes[size]}`} 
 			style={{backgroundImage: `url(${imageUrl})`}}
+			onClick={() => history.push(`${match.url}${linkUrl}`)}
 		>
 			<div 
 				className={classes.background}
@@ -20,4 +22,4 @@ const MenuItem = ({title, imageUrl, size}) => {
 	)
 }
 
-export default MenuItem
+export default withRouter(MenuItem)
