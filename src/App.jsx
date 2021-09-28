@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import classes from './App.module.sass';
-import HomePage from './components/HomePage/HomePage';
+import HomePage from './pages/HomePage/HomePage';
 
 function App() {
   return (
