@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import MenuItem from '../MenuItem/MenuItem'
+import MenuItem from './MenuItem/MenuItem'
 
 import classes from './Directory.module.sass'
 

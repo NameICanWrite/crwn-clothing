@@ -1,7 +1,7 @@
 import classes from './CollectionPreview.module.sass'
 
 import React from 'react'
-import CollectionItem from '../CollectionItem/CollectionItem'
+import CollectionItem from './CollectionItem/CollectionItem'
 
 const CollectionPreview = ({ title, items }) => {
 	return (
