@@ -1,0 +1,48 @@
+{
+  "usesTypeScript": false,
+  "usesCssModule": true,
+  "cssPreprocessor": "sass",
+  "testLibrary": "None",
+  "component": {
+    "default": {
+      "path": "src/components",
+      "withStyle": true,
+      "withTest": false,
+      "withStory": false,
+      "withLazy": false
+    },
+	"arrow-func": {
+		"path":"src/components",
+		"withStyle": true,
+		"withTest": false,
+		"withStory": false,
+		"withLazy": false,
+		"customTemplates": {
+			"component": "templates/ArrowFunction/TemplateName.jsx",
+			"styles": "templates/ArrowFunction/TemplateName.module.sass"
+		}
+	},
+	"class": {
+		"path": "src/components",
+		"withStyle": true,
+		"withTest": false,
+		"withStory": false,
+		"withLazy": false,
+		"customTemplates": {
+			"component": "templates/Class/TemplateName.jsx",
+			"styles": "templates/Class/TemplateName.module.sass"
+		}
+	},
+	"page": {
+		"path": "src/pages",
+		"withStyle": true,
+		"withTest": false,
+		"withStory": false,
+		"withLazy": false,
+		"customTemplates": {
+			"component": "templates/Class/TemplateName.jsx",
+			"styles": "templates/Class/TemplateName.module.sass"
+		}
+	}
+  }
+}

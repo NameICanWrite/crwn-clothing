@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import classes from './App.module.sass';
 import HomePage from './pages/HomePage/HomePage';
 import { Route, Switch } from 'react-router';
+import ShopPage from './pages/ShopPage/ShopPage';
 const HatsPage = () => {
   return (
     <div>
@@ -15,7 +16,7 @@ function App() {
     <div className={classes.App}>
       <Switch>
         <Route exact path='/' component={HomePage} />
-        <Route path='/shop/hats' component={HatsPage} />
+        <Route path='/shop' component={ShopPage} />
       </Switch>
     </div>
   );
