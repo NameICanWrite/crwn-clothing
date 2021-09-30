@@ -2,11 +2,12 @@ import classes from './Button.module.sass'
 
 import React from 'react'
 
-const Button = () => {
+const Button = ({children, className, ...otherProps}) => {
+	const customClass = className?.split(' ').map(item => classes[item] || item).join(' ')
 	return (
-		<div className={classes.container}>
-			
-		</div>
+		<button className={`${classes.container} ${customClass}`} {...otherProps}>
+			{children}
+		</button>
 	)
 }
 
