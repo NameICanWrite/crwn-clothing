@@ -3,7 +3,7 @@ import classes from './SignIn.module.sass'
 import React, { Component } from 'react'
 import FormInput from '../FormInput/FormInput'
 import Button from '../Button/Button'
-import { signInWithGoogle } from '../../firebase/firease.utils'
+import { signInWithGoogle } from '../../firebase/firebase.utils'
 
 export default class SignIn extends Component {
 	constructor() {
