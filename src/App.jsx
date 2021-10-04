@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import classes from './App.module.sass';
 import HomePage from './pages/HomePage/HomePage';
-import { Route, Switch } from 'react-router';
+import { Redirect, Route, Switch } from 'react-router';
 import ShopPage from './pages/ShopPage/ShopPage';
 import Header from './components/Header/Header';
 import SignPage from './pages/SignPage/SignPage';
@@ -48,12 +48,18 @@ class App extends Component {
 				<Switch>
 					<Route exact path='/' component={HomePage} />
 					<Route path='/shop' component={ShopPage} />
-					<Route path='/sign' component={SignPage} />
+					<Route path='/sign' render={() => this.props.currentUser ? <Redirect to='/' /> : <SignPage />} />
 				</Switch>
 			</div>
 		);
 	}
 
+}
+
+const mapStateToProps = ({user}) => {
+	return {
+		currentUser: user.currentUser
+	}
 }
 
 const mapDispatchToProps = (dispatch) => {
