@@ -19,7 +19,7 @@
 		"withLazy": false,
 		"customTemplates": {
 			"component": "templates/ArrowFunction/TemplateName.jsx",
-			"styles": "templates/ArrowFunction/TemplateName.module.sass"
+			"style": "templates/ArrowFunction/TemplateName.module.sass"
 		}
 	},
 	"class": {
@@ -30,7 +30,7 @@
 		"withLazy": false,
 		"customTemplates": {
 			"component": "templates/Class/TemplateName.jsx",
-			"styles": "templates/Class/TemplateName.module.sass"
+			"style": "templates/Class/TemplateName.module.sass"
 		}
 	},
 	"page": {

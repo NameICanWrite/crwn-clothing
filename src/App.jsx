@@ -9,6 +9,7 @@ import { auth, createUserProfileDoc } from './firebase/firebase.utils.js'
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import { setCurrentUser } from './redux/user/user.actions';
+import CartIcon from './components/Header/CartIcon/CartIcon';
 
 class App extends Component {
 
@@ -32,7 +33,6 @@ class App extends Component {
 						})
 				})
 			} else setCurrentUser(null)
-
 		})
 	}
 
