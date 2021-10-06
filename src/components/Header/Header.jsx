@@ -12,7 +12,6 @@ import { selectCurrentUser } from '../../redux/user/user.selector'
 
 
 const Header = ({ currentUser, showCartDropdown}) => {
-	useEffect(() => console.log(CartIcon), [])
 	return (
 		<div className={classes.container}>
 			<Link to='/' className={classes.logo_container}>
