@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 
 export default class TemplateName extends Component {
 	constructor() {
+		super()
 
 		this.state = {
 

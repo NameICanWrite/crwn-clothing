@@ -41,7 +41,7 @@
 		"withLazy": false,
 		"customTemplates": {
 			"component": "templates/Class/TemplateName.jsx",
-			"style": "templates/Class/TemplateName.sass"
+			"style": "templates/Class/TemplateName.module.sass"
 		}
 	}
   }

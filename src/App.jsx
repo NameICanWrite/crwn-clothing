@@ -10,6 +10,9 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 import { setCurrentUser } from './redux/user/user.actions';
 import CartIcon from './components/Header/CartIcon/CartIcon';
+import { createStructuredSelector } from 'reselect';
+import { selectCurrentUser } from './redux/user/user.selector';
+import CheckoutPage from './pages/CheckoutPage/CheckoutPage';
 
 class App extends Component {
 
@@ -48,6 +51,7 @@ class App extends Component {
 				<Switch>
 					<Route exact path='/' component={HomePage} />
 					<Route path='/shop' component={ShopPage} />
+					<Route exact path='/checkout' component={CheckoutPage} />
 					<Route path='/sign' render={() => this.props.currentUser ? <Redirect to='/' /> : <SignPage />} />
 				</Switch>
 			</div>
@@ -56,11 +60,9 @@ class App extends Component {
 
 }
 
-const mapStateToProps = ({user}) => {
-	return {
-		currentUser: user.currentUser
-	}
-}
+const mapStateToProps = createStructuredSelector({
+	currentUser: selectCurrentUser
+})
 
 const mapDispatchToProps = (dispatch) => {
 	return {

@@ -8,9 +8,10 @@ import { ReactComponent as Logo } from '../../assets/crown.svg'
 import { auth } from '../../firebase/firebase.utils'
 import CartIcon from './CartIcon/CartIcon'
 import CartDropdown from './CartDropdown/CartDropdown'
+import { selectCurrentUser } from '../../redux/user/user.selector'
 
 
-const Header = ({ currentUser, showCartDropdown }) => {
+const Header = ({ currentUser, showCartDropdown}) => {
 	useEffect(() => console.log(CartIcon), [])
 	return (
 		<div className={classes.container}>
@@ -39,11 +40,11 @@ const Header = ({ currentUser, showCartDropdown }) => {
 	)
 }
 
-const mapStateToProps = ({ user: { currentUser }, cart }) => {
+const mapStateToProps = (state) => {
 
 	return {
-		currentUser,
-		showCartDropdown: cart.show
+		currentUser: selectCurrentUser(state),
+		showCartDropdown: state.cart.showDropdown
 	}
 }
 
