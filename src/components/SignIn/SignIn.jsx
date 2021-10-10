@@ -3,7 +3,7 @@ import classes from './SignIn.module.sass'
 import React, { Component } from 'react'
 import FormInput from '../FormInput/FormInput'
 import Button from '../Button/Button'
-import { signInWithGoogle } from '../../firebase/firebase.utils'
+import { auth, signInWithGoogle } from '../../firebase/firebase.utils'
 
 export default class SignIn extends Component {
 	constructor() {
@@ -17,8 +17,13 @@ export default class SignIn extends Component {
 
 	handleSubmit = event => {
 		event.preventDefault()
-
-		this.setState({ email: '', password: '' })
+		const {email, password} = this.state
+		try {
+			auth.signInWithEmailAndPassword(email, password)
+			this.setState({ email: '', password: '' })
+		} catch(err) {
+			console.log(err.message);
+		}
 	}
 
 	handleChange = event => {

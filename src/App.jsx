@@ -5,7 +5,7 @@ import { Redirect, Route, Switch } from 'react-router';
 import ShopPage from './pages/ShopPage/ShopPage';
 import Header from './components/Header/Header';
 import SignPage from './pages/SignPage/SignPage';
-import { auth, createUserProfileDoc } from './firebase/firebase.utils.js'
+import { addCollection, auth, createUserProfileDoc } from './firebase/firebase.utils.js'
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import { setCurrentUser } from './redux/user/user.actions';
@@ -13,6 +13,7 @@ import CartIcon from './components/Header/CartIcon/CartIcon';
 import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from './redux/user/user.selector';
 import CheckoutPage from './pages/CheckoutPage/CheckoutPage';
+import { selectShopCollections } from './redux/shop/shop.selectors';
 
 class App extends Component {
 
@@ -34,7 +35,7 @@ class App extends Component {
 							id: snapShot.id,
 							...snapShot.data()
 						})
-				})
+					})
 			} else setCurrentUser(null)
 		})
 	}
@@ -61,7 +62,7 @@ class App extends Component {
 }
 
 const mapStateToProps = createStructuredSelector({
-	currentUser: selectCurrentUser
+	currentUser: selectCurrentUser,
 })
 
 const mapDispatchToProps = (dispatch) => {
@@ -70,4 +71,4 @@ const mapDispatchToProps = (dispatch) => {
 	}
 }
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

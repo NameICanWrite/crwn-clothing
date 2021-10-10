@@ -1,6 +1,8 @@
 import classes from './TemplateName.module.sass'
 
 import React from 'react'
+import { connect } from 'react-redux'
+import { createStructuredSelector } from 'reselect'
 
 const TemplateName = () => {
 	return (
@@ -10,4 +12,9 @@ const TemplateName = () => {
 	)
 }
 
-export default TemplateName
+const mapStateToProps = createStructuredSelector({})
+const mapDispatchToProps = (dispatch) => ({})
+
+export default connect(mapStateToProps, mapDispatchToProps)(TemplateName)
+
+

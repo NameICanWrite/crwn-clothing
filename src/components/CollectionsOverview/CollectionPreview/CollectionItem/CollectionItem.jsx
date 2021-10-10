@@ -1,8 +1,8 @@
 import classes from './CollectionItem.module.sass'
 
 import React from 'react'
-import Button from '../../Button/Button'
-import { addItem } from '../../../redux/cart/cart.actions'
+import Button from '../../../Button/Button'
+import { addItem } from '../../../../redux/cart/cart.actions'
 import { connect } from 'react-redux'
 
 const CollectionItem = ({item, addItem}) => {
