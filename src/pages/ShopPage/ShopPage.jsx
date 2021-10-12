@@ -9,7 +9,7 @@ import CollectionsOverview from '../../components/CollectionsOverview/Collection
 import { Route } from 'react-router'
 import CollectionPage from '../CollectionPage/CollectionPage'
 import { firestore, mapCollectionsSnapshot } from '../../firebase/firebase.utils'
-import { updateCollections } from '../../redux/shop/shop.actions'
+import { fetchCollections, updateCollections } from '../../redux/shop/shop.actions'
 import WithSpinner from '../../components/WithSpinner/WithSpinner'
 
 const CollectionsOverviewWithSpinner = WithSpinner(CollectionsOverview)
@@ -27,15 +27,10 @@ class ShopPage extends Component {
 	unsubscribeFromSnapshot = null
 
 	componentDidMount() {
-		const {updateCollections} = this.props
-		const collectionRef = firestore.collection('collections')
-
-		this.unsubscribeFromSnapshot =  collectionRef.onSnapshot(async snapshot => {
-			const collections = mapCollectionsSnapshot(snapshot)
-			updateCollections(collections)
-			this.setState({loading: false})
-		})
+		this.props.fetchCollections().finally(() => this.setState({ loading: false }))
 	}
+
+
 
 	render() {
 		const {match} = this.props
@@ -50,10 +45,12 @@ class ShopPage extends Component {
 }
 
 const mapStateToProps = createStructuredSelector({
+	collections: selectShopCollections
 })
 
 const mapDispatchToProps = (dispatch) => ({
-	updateCollections: (collections) => dispatch(updateCollections(collections))
+	updateCollections: (collections) => dispatch(updateCollections(collections)),
+	fetchCollections: () => dispatch(fetchCollections())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShopPage)
