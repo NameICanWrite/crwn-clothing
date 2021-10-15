@@ -11,6 +11,16 @@ switch (action.type) {
 			...state,
 			currentUser: action.payload
 		}
+	case UserActionTypes.AUTH_MESSAGE:
+		return {
+			...state,
+			message: action.payload
+		}
+	case UserActionTypes.AUTH_ERROR:
+		return {
+			...state,
+			error: action.payload
+		}
 	default:
 		return state
 }

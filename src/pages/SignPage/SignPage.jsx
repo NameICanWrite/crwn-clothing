@@ -1,6 +1,6 @@
 import classes from './SignPage.module.sass'
 
-import React, { Component } from 'react'
+import React, { Component, useEffect } from 'react'
 import SignIn from '../../components/SignIn/SignIn'
 import SignUp from '../../components/SignUp/SignUp'
 
@@ -13,7 +13,7 @@ const SignPage = () => {
 	)
 }
 
-export default SignPage
+export default (SignPage)
 
 
 

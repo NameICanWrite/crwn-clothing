@@ -14,8 +14,8 @@ const firebaseConfig = {
 
 const app = firebase.initializeApp(firebaseConfig)
 
-const provider = new firebase.auth.GoogleAuthProvider()
-provider.setCustomParameters({
+const googleProvider = new firebase.auth.GoogleAuthProvider()
+googleProvider.setCustomParameters({
 	prompt: 'select_account'
 })
 
@@ -73,7 +73,7 @@ export const mapCollectionsSnapshot = (collections) => {
 
 
 export const auth = firebase.auth()
-export const signInWithGoogle = () => auth.signInWithPopup(provider)
+export const signInWithGoogle = () => auth.signInWithPopup(googleProvider)
 export const firestore = firebase.firestore()
 
 export default firebase

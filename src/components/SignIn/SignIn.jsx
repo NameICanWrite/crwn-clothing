@@ -4,8 +4,12 @@ import React, { Component } from 'react'
 import FormInput from '../FormInput/FormInput'
 import Button from '../Button/Button'
 import { auth, signInWithGoogle } from '../../firebase/firebase.utils'
+import { connect } from 'react-redux'
+import { UserActionTypes } from '../../redux/user/user.types'
+import { signInGoogle } from '../../redux/user/user.actions'
+import { useDispatch } from 'react-redux'
 
-export default class SignIn extends Component {
+ class SignIn extends Component {
 	constructor() {
 		super()
 
@@ -13,6 +17,10 @@ export default class SignIn extends Component {
 			email: '',
 			password: ''
 		}
+	}
+
+	componentDidMount() {
+		console.log(this.props.signInWithGoogle)
 	}
 
 	handleSubmit = event => {
@@ -57,12 +65,18 @@ export default class SignIn extends Component {
 					/>
 					<div className={classes.buttons}>
 						<Button type="submit" >Sign In</Button>
-						<Button onClick={signInWithGoogle} className='blue' >Sign In with Google</Button>
+						<Button onClick={this.props.signInWithGoogle} className='blue' >Sign In with Google</Button>
 					</div>
 				</form>
 			</div>
 		)
 	}
 }
+
+const mapDispatchToProps = (dispatch) => ({
+	signInWithGoogle: () => dispatch(signInGoogle())
+})
+
+export default connect(null, mapDispatchToProps)(SignIn)
 
 
