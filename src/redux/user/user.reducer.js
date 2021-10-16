@@ -14,12 +14,14 @@ switch (action.type) {
 	case UserActionTypes.AUTH_MESSAGE:
 		return {
 			...state,
-			message: action.payload
+			message: action.payload,
+			error: ''
 		}
 	case UserActionTypes.AUTH_ERROR:
 		return {
 			...state,
-			error: action.payload
+			error: action.payload,
+			message: ''
 		}
 	default:
 		return state

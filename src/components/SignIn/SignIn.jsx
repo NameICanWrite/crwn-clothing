@@ -6,7 +6,7 @@ import Button from '../Button/Button'
 import { auth, signInWithGoogle } from '../../firebase/firebase.utils'
 import { connect } from 'react-redux'
 import { UserActionTypes } from '../../redux/user/user.types'
-import { signInGoogle } from '../../redux/user/user.actions'
+import { signInEmail, signInGoogle } from '../../redux/user/user.actions'
 import { useDispatch } from 'react-redux'
 
  class SignIn extends Component {
@@ -26,12 +26,7 @@ import { useDispatch } from 'react-redux'
 	handleSubmit = event => {
 		event.preventDefault()
 		const {email, password} = this.state
-		try {
-			auth.signInWithEmailAndPassword(email, password)
-			this.setState({ email: '', password: '' })
-		} catch(err) {
-			console.log(err.message);
-		}
+		this.props.signInWithEmail(email, password)
 	}
 
 	handleChange = event => {
@@ -74,7 +69,8 @@ import { useDispatch } from 'react-redux'
 }
 
 const mapDispatchToProps = (dispatch) => ({
-	signInWithGoogle: () => dispatch(signInGoogle())
+	signInWithGoogle: () => dispatch(signInGoogle()),
+	signInWithEmail: (email, password) => dispatch(signInEmail({email, password}))
 })
 
 export default connect(null, mapDispatchToProps)(SignIn)

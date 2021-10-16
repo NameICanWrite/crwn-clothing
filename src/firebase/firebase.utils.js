@@ -23,10 +23,8 @@ export const createUserProfileDoc = async (userAuth, additionaldata) => {
 	if (!userAuth) return
 
 	const userRef = firestore.doc(`users/${userAuth.uid}`)
-	const collectionRef = firestore.collection('users')
 
 	const snapShot = await userRef.get()
-	const collectionSnapshot = await collectionRef.get()
 
 	if (!snapShot.exists) {
 		const { displayName, email } = userAuth
@@ -71,9 +69,20 @@ export const mapCollectionsSnapshot = (collections) => {
 	return collectionsMap
 }
 
+export const getCurrentAuth = () => {
+	return new Promise((resolve, reject) => {
+		const unsubscribe = auth.onAuthStateChanged(userAuth => {
+			unsubscribe();
+			resolve({user: userAuth});
+		}, reject);
+	});
+};
 
 export const auth = firebase.auth()
+export const signOut = () => auth.signOut()
 export const signInWithGoogle = () => auth.signInWithPopup(googleProvider)
+export const signInWithEmailAndPassword = (email, password) => auth.signInWithEmailAndPassword(email, password)
+export const createUserWithEmailAndPassword = (email, password) => auth.createUserWithEmailAndPassword(email, password)
 export const firestore = firebase.firestore()
 
 export default firebase

@@ -8,7 +8,7 @@ import SignPage from './pages/SignPage/SignPage';
 import { addCollection, auth, createUserProfileDoc } from './firebase/firebase.utils.js'
 import { Component } from 'react';
 import { connect } from 'react-redux';
-import { setCurrentUser } from './redux/user/user.actions';
+import { setCurrentUser, signInCurrent } from './redux/user/user.actions';
 import CartIcon from './components/Header/CartIcon/CartIcon';
 import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from './redux/user/user.selector';
@@ -17,29 +17,8 @@ import { selectShopCollections } from './redux/shop/shop.selectors';
 
 class App extends Component {
 
-
-
-	unsubscribeFromAuth = null
-
 	componentDidMount() {
-		const {setCurrentUser} = this.props
-
-		this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-			if (userAuth) {
-				const userRef = await createUserProfileDoc(userAuth)
-
-				userRef.onSnapshot(snapShot => {
-					// setCurrentUser({
-					// 		id: snapShot.id,
-					// 		...snapShot.data()
-					// 	})
-					})
-			} else setCurrentUser(null)
-		})
-	}
-
-	componentWillUnmount() {
-		this.unsubscribeFromAuth()
+		this.props.authWithCurrentCredentials()
 	}
 
 
@@ -65,7 +44,8 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		setCurrentUser: user => dispatch(setCurrentUser(user))
+		setCurrentUser: user => dispatch(setCurrentUser(user)),
+		authWithCurrentCredentials: () => dispatch(signInCurrent())
 	}
 }
 

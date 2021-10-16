@@ -9,9 +9,10 @@ import { auth } from '../../firebase/firebase.utils'
 import CartIcon from './CartIcon/CartIcon'
 import CartDropdown from './CartDropdown/CartDropdown'
 import { selectCurrentUser } from '../../redux/user/user.selector'
+import { signOut } from '../../redux/user/user.actions'
 
 
-const Header = ({ currentUser, showCartDropdown}) => {
+const Header = ({ currentUser, showCartDropdown, signOut}) => {
 	return (
 		<div className={classes.container}>
 			<Link to='/' className={classes.logo_container}>
@@ -25,7 +26,7 @@ const Header = ({ currentUser, showCartDropdown}) => {
 				{
 					currentUser
 						?
-						<div className={classes.option} onClick={() => auth.signOut()} >SIGN OUT</div>
+						<div className={classes.option} onClick={() => signOut()} >SIGN OUT</div>
 						:
 						<Link className={classes.option} to="/sign">SIGN IN</Link>
 				}
@@ -47,4 +48,8 @@ const mapStateToProps = (state) => {
 	}
 }
 
-export default connect(mapStateToProps)(Header)
+const mapDispatchToProps = (dispatch) => ({
+	signOut: () => dispatch(signOut())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header)
