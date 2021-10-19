@@ -6,8 +6,10 @@ import { connect } from 'react-redux'
 import CartItem from './CartItem/CartItem'
 import { selectCartItems } from '../../../redux/cart/cart.selectors'
 import { withRouter } from 'react-router-dom'
+import { useHistory } from 'react-router'
 
-const CartDropdown = ({cartItems, history, dispatch}) => {
+const CartDropdown = ({cartItems}) => {
+	const history = useHistory()
 	return (
 		<div className={classes.container}>
 			<div className={classes.cart_items}>
@@ -28,4 +30,4 @@ const CartDropdown = ({cartItems, history, dispatch}) => {
 
 const mapStateToProps = (state) => ({cartItems: selectCartItems(state)})
 
-export default withRouter(connect(mapStateToProps)(CartDropdown))
+export default connect(mapStateToProps)(CartDropdown)
