@@ -12,10 +12,10 @@ class SignUp extends Component {
 		super()
 
 		this.state = {
-			displayName: 'Vad',
-			email: 'absdjh@gmail.com',
-			password: '12345678',
-			confirmPassword: '12345678'
+			displayName: '',
+			email: '',
+			password: '',
+			confirmPassword: ''
 		}
 	}
 
@@ -39,7 +39,7 @@ class SignUp extends Component {
 	render() {
 		return (
 			<div className={classes.container}>
-				<h2>I do not </h2>
+				<h2>I do not have an account </h2>
 				<span>sign up</span>
 
 				<form onSubmit={this.handleSubmit}>
