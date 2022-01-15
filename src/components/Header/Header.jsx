@@ -1,6 +1,6 @@
 import classes from './Header.module.scss'
 
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 
@@ -10,32 +10,40 @@ import CartIcon from './CartIcon/CartIcon'
 import CartDropdown from './CartDropdown/CartDropdown'
 import { selectCurrentUser } from '../../redux/user/user.selector'
 import { signOut } from '../../redux/user/user.actions'
+import CurrentUserContext from '../../contexts/currentUser.context'
+import CartContext from '../../contexts/сart.context'
 
 
-const Header = ({ currentUser, showCartDropdown, signOut}) => {
+const Header = ({ signOut }) => {
+	const currentUser = useContext(CurrentUserContext)
+	const [showCartDropdown, setShowCartDropdown] = useState(false)
+	const toggleShowCartDropdown = () => setShowCartDropdown(!showCartDropdown)
 	return (
 		<div className={classes.container}>
 			<Link to='/' className={classes.logo_container}>
 				<Logo className={classes.logo} />
 			</Link>
 
+			<CartContext.Provider value={{ show: showCartDropdown, toggleShow: toggleShowCartDropdown }}>
+				<div className={classes.options}>
+					<Link className={classes.option} to="/shop">SHOP</Link>
+					<Link className={classes.option} to="/">CONTACT</Link>
+					{
+						currentUser
+							?
+							<div className={classes.option} onClick={() => signOut()} >SIGN OUT</div>
+							:
+							<Link className={classes.option} to="/sign">SIGN IN</Link>
+					}
+					<CartIcon />
+				</div>
 
-			<div className={classes.options}>
-				<Link className={classes.option} to="/shop">SHOP</Link>
-				<Link className={classes.option} to="/">CONTACT</Link>
 				{
-					currentUser
-						?
-						<div className={classes.option} onClick={() => signOut()} >SIGN OUT</div>
-						:
-						<Link className={classes.option} to="/sign">SIGN IN</Link>
+					showCartDropdown &&
+					<CartDropdown />
 				}
-				<CartIcon />
-			</div>
-			{
-				showCartDropdown &&
-				<CartDropdown />
-			}
+			</CartContext.Provider>
+
 		</div>
 	)
 }

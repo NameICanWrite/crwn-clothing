@@ -1,49 +1,82 @@
-import logo from './logo.svg';
-import classes from './App.module.sass';
-import HomePage from './pages/HomePage/HomePage';
-import { Redirect, Route, Switch } from 'react-router';
-import ShopPage from './pages/ShopPage/ShopPage';
+import React, { lazy, Suspense } from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
+
+import { auth, createUserProfileDoc } from './firebase/firebase.utils';
+import CurrentUserContext from './contexts/currentUser.context';
+
 import Header from './components/Header/Header';
-import SignPage from './pages/SignPage/SignPage';
-import { addCollection, auth, createUserProfileDoc } from './firebase/firebase.utils.js'
-import { Component, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { setCurrentUser, signInCurrent } from './redux/user/user.actions';
-import CartIcon from './components/Header/CartIcon/CartIcon';
-import { createStructuredSelector } from 'reselect';
-import { selectCurrentUser } from './redux/user/user.selector';
-import CheckoutPage from './pages/CheckoutPage/CheckoutPage';
-import { selectShopCollections } from './redux/shop/shop.selectors';
-
-function App({authWithCurrentCredentials, currentUser}) {
-
-	useEffect(() => {
-		authWithCurrentCredentials()
-	}, [authWithCurrentCredentials])
 
 
+const HomePage = lazy(() => import('./pages/HomePage/HomePage'))
+const ShopPage = lazy(() => import('./pages/ShopPage/ShopPage'))
+const CheckoutPage = lazy(() => import('./pages/CheckoutPage/CheckoutPage'))
+const SignInAndSignUpPage = lazy(() => import('./pages/SignPage/SignPage'))
+
+class App extends React.Component {
+	constructor() {
+		super()
+
+		this.state = {
+			currentUser: null
+		}
+	}
+	unsubscribeFromAuth = null;
+
+	componentDidMount() {
+		console.log(this.props.match);
+		const { setCurrentUser } = this.props;
+
+		this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+			if (userAuth) {
+				const userRef = await createUserProfileDoc(userAuth);
+
+				userRef.onSnapshot(snapShot => {
+					this.setState({
+						currentUser: {
+							id: snapShot.id,
+							...snapShot.data()
+						}
+					});
+				});
+			}
+
+			this.setState({ currentUser: userAuth });
+		});
+	}
+
+	componentWillUnmount() {
+		this.unsubscribeFromAuth();
+	}
+
+	render() {
 		return (
-			<div className={classes.App}>
-				<Header  />
+			<div>
+				<CurrentUserContext.Provider value={this.state.currentUser}>
+					<Header />
+				</CurrentUserContext.Provider>
+
 				<Switch>
-					<Route exact path='/' component={HomePage} />
-					<Route path='/shop' component={ShopPage} />
-					<Route exact path='/checkout' component={CheckoutPage} />
-					<Route path='/sign' render={() => currentUser ? <Redirect to='/' /> : <SignPage />} />
+					<Suspense fallback={<div>..loading</div>}>
+						<Route exact path='/' component={HomePage} />
+						<Route path='/shop' component={ShopPage} />
+						<Route exact path='/checkout' component={CheckoutPage} />
+						<Route
+							exact
+							path='/sign'
+							render={() =>
+								this.state.currentUser ? (
+									<Redirect to='/' />
+								) : (
+									<SignInAndSignUpPage />
+								)
+							}
+						/>
+					</Suspense>
+
 				</Switch>
 			</div>
 		);
 	}
-
-const mapStateToProps = createStructuredSelector({
-	currentUser: selectCurrentUser,
-})
-
-const mapDispatchToProps = (dispatch) => {
-	return {
-		setCurrentUser: user => dispatch(setCurrentUser(user)),
-		authWithCurrentCredentials: () => dispatch(signInCurrent())
-	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App

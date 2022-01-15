@@ -3,7 +3,7 @@ import Directory from '../../components/Directory/Directory'
 
 import classes from './HomePage.module.sass'
 
-const HomePage = () => {
+const HomePage = (props) => {
 	return (
 		<div className={classes.homepage}>
 			<Directory />

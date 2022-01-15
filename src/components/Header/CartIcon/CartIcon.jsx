@@ -1,15 +1,17 @@
 import classes from './CartIcon.module.sass'
 import {ReactComponent as ShoppingIcon} from '../../../assets/shopping-bag.svg'
 
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { toggleCartDropdown } from '../../../redux/cart/cart.actions'
 import { connect } from 'react-redux'
 import { selectCartItemsCount } from '../../../redux/cart/cart.selectors'
 import { createStructuredSelector } from 'reselect'
+import CartContext from '../../../contexts/сart.context'
 
-const CartIcon = ({toggleCartDropdown, itemCount}) => {
+const CartIcon = ({ itemCount}) => {
+	const toggleShowDropdown = useContext(CartContext).toggleShow
 	return (
-		<div className={classes.container} onClick={toggleCartDropdown}>
+		<div className={classes.container} onClick={toggleShowDropdown}>
 			<ShoppingIcon className={classes.shopping_icon} />
 			<span className={classes.item_count}>{itemCount}</span>
 		</div>
