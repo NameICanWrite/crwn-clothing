@@ -27,7 +27,7 @@ const Header = ({ signOut }) => {
 			<CartContext.Provider value={{ show: showCartDropdown, toggleShow: toggleShowCartDropdown }}>
 				<div className={classes.options}>
 					<Link className={classes.option} to="/shop">SHOP</Link>
-					<Link className={classes.option} to="/">CONTACT</Link>
+					<a className={classes.option} href="https://github.com/NameICanWrite/crwn-clothing">SOURCE CODE</a>
 					{
 						currentUser
 							?
