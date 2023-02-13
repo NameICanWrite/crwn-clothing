@@ -39,8 +39,8 @@ class SignUp extends Component {
 	render() {
 		return (
 			<div className={classes.container}>
-				<h2>I do not have an account </h2>
-				<span>sign up</span>
+				{/* <h2>I do not have an account </h2> */}
+				<h1>Sign up with email</h1>
 
 				<form onSubmit={this.handleSubmit}>
 					<FormInput
@@ -54,7 +54,7 @@ class SignUp extends Component {
 					<FormInput
 						type="email"
 						name='email'
-						label='email'
+						label='Email'
 						value={this.state.email}
 						required
 						handleChange={this.handleChange}
@@ -62,7 +62,7 @@ class SignUp extends Component {
 					<FormInput
 						type="password"
 						name='password'
-						label='password'
+						label='Password >= 6 symbols'
 						value={this.state.password}
 						required
 						handleChange={this.handleChange}
